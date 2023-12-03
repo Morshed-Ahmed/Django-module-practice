@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style></style>
+  </head>
+  <body>
+    <h1>BLOG</h1>
+    <h1>All Post: {{ data | length }}</h1>
+    {% for i in data %}
+    <div
+      style="
+        border: 1px solid black;
+        margin: 10px;
+        padding: 10px;
+        border-radius: 5px;
+      "
+    >
+      <h1>{{i.title | capfirst}}</h1>
+      <p>{{i.description | truncatewords:20}}</p>
+      <span>{{i.time | timesince | upper}} Ago</span>
+    </div>
+    {% endfor %}
+  </body>
+</html>
