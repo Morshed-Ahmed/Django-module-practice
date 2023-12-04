@@ -1,0 +1,29 @@
+{% extends "Base.html" %} {% block content %}
+
+<section class="container my-5">
+  <div class="row row-cols-1 row-cols-md-3 g-4">
+    {% for meal in meals %}
+    <div class="col">
+      <div class="card">
+        <img
+          src="{{meal.strMealThumb}}"
+          class="card-img-top img-fulid"
+          alt="..."
+        />
+        <div class="card-body">
+          <div class="">
+            <h5 class="card-title">{{meal.strMeal}}</h5>
+            <p>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo
+              perspiciatis nemo quam, eligendi sit ea iste laboriosam sapiente.
+              Quam facilis consequuntur cum, ex nihil incidunt porro eligendi
+              expedita magni nulla.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+{% endblock content %}
