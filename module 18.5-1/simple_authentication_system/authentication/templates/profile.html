@@ -1,0 +1,164 @@
+{% extends "base.html" %}
+<div></div>
+
+{% block body %}
+
+<div class="container my-5">
+  {% if messages %} {% for m in messages %}
+  <div>
+    <small {% if m.tags %} class="{{m.tags}}" {% endif %}>
+      <span
+        id="message-container"
+        class="border border-secondary-subtle rounded p-4 fw-bold fs-6 bg-warning-subtle"
+      >
+        {{m}}
+      </span>
+    </small>
+  </div>
+  {% endfor %} {% endif %}
+
+  <div class="card w-50 mx-auto">
+    <div class="card-header">Personal Information</div>
+    <div class="card-body">
+      <blockquote class="">
+        <h5>Full Name:</h5>
+        <p>{{ user.first_name | title}} {{ user.last_name |title}}</p>
+        <h5>Email Address:</h5>
+        <p>{{ user.email }}</p>
+
+        <button
+          type="button"
+          class="btn btn-link"
+          data-bs-toggle="modal"
+          data-bs-target="#exampleModals"
+          data-bs-whatever="@mdo"
+        >
+          Change Password
+        </button>
+        <br />
+        <div class="d-flex justify-content-center">
+          <button
+            type="button"
+            class="btn btn-primary"
+            data-bs-toggle="modal"
+            data-bs-target="#exampleModal"
+            data-bs-whatever="@mdo"
+          >
+            Edit Profile
+          </button>
+        </div>
+      </blockquote>
+    </div>
+  </div>
+
+  {% comment %} USER PASSWORD CHANGE {% endcomment %}
+
+  <div
+    class="modal fade"
+    id="exampleModals"
+    tabindex="-1"
+    aria-labelledby="exampleModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">
+            Change Password
+          </h1>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">
+          {% load crispy_forms_tags %}
+          <form method="post" novalidate>
+            {% csrf_token %}
+            <!-- {{changePassForm | crispy }} -->
+            {% for fm in changePassForm %}
+            <div>
+              {{fm.label_tag}} {{fm}}
+              <br />
+              {{fm.errors|striptags}}
+            </div>
+            {% endfor %}
+
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Close
+              </button>
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {% comment %} USER DATA UPDATE MODAL {% endcomment %}
+  <div
+    class="modal fade"
+    id="exampleModal"
+    tabindex="-1"
+    aria-labelledby="exampleModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">
+            Update Profile
+          </h1>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">
+          {% load crispy_forms_tags %}
+          <form method="post" novalidate>
+            {% csrf_token %}
+            <!-- {{form | crispy }} -->
+            {% for fm in form %}
+            <div>
+              {{fm.label_tag}} {{fm}}
+              <br />
+              {{fm.errors|striptags}}
+            </div>
+            {% endfor %}
+
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Close
+              </button>
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    setTimeout(function () {
+      // Show the message container
+      document.getElementById("message-container").style.display = "none";
+    }, 5000); // 5000 milliseconds (5 seconds) delay
+  });
+</script>
+{% endblock body %}
